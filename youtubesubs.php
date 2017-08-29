@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: YouTube Subs
-Plugin URI: http://traversymedia.com
+Plugin URI: https://github.com/enfrte/
 Description: Display YouTube sub button and count
-Version: 1.0.0
-Author: Brad Traversy
-Author URI: http://traversymedia.com
+Version: 1.1.0
+Author: Leon Forte
+Author URI: https://github.com/enfrte/
 */
 
 // Exit if accessed directly
