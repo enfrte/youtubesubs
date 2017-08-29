@@ -4,7 +4,7 @@ Plugin Name: YouTube Subs
 Plugin URI: https://github.com/enfrte/
 Description: Display YouTube sub button and count
 Version: 1.1.0
-Author: Leon Forte
+Author: Leon F.
 Author URI: https://github.com/enfrte/
 */
 
