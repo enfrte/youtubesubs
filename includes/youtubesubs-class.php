@@ -31,7 +31,7 @@
       }
 
       // Widget Content Output
-      echo '<div class="g-ytsubscribe" data-channel="'.$instance['channel'].'" data-layout="'.$instance['layout'].'" data-count="'.$instance['count'].'"></div>';
+      echo '<div class="g-ytsubscribe" data-'.$instance['channel_url_type'].'="'.$instance['channel'].'" data-layout="'.$instance['layout'].'" data-count="'.$instance['count'].'"></div>';
 
       echo $args['after_widget']; // Whatever you want to display after widget (</div>, etc)
     }
@@ -46,11 +46,13 @@
     public function form( $instance ) {
       $title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'YouTube Subs', 'yts_domain' ); 
       
-      $channel = ! empty( $instance['channel'] ) ? $instance['channel'] : esc_html__( 'techguyweb', 'yts_domain' ); 
+      $channel = ! empty( $instance['channel'] ) ? $instance['channel'] : esc_html__( 'Enter Channel Name or ID', 'yts_domain' ); 
 
       $layout = ! empty( $instance['layout'] ) ? $instance['layout'] : esc_html__( 'default', 'yts_domain' ); 
 
       $count = ! empty( $instance['count'] ) ? $instance['count'] : esc_html__( 'default', 'yts_domain' ); 
+
+      $channel_url_type = ! empty( $instance['channel_url_type'] ) ? $instance['channel_url_type'] : esc_html__( 'channelid', 'yts_domain' ); 
   
       ?>
       
@@ -84,6 +86,14 @@
           value="<?php echo esc_attr( $channel ); ?>">
       </p>
 
+      <!-- CHANNEL URL TYPE (NAME OR ID) -->
+      <p>
+        <input type="radio" id="channel_id" name="<?php echo esc_attr( $this->get_field_name( 'channel_url_type' ) ); ?>" value="channelid" <?php echo ($channel_url_type == 'channelid') ? 'checked' : ''; ?>>
+        <label for="channel_id">Channel ID</label><br>
+        <input type="radio" id="channel_name" name="<?php echo esc_attr( $this->get_field_name( 'channel_url_type' ) ); ?>" value="channel" <?php echo ($channel_url_type == 'channel') ? 'checked' : ''; ?>>
+        <label for="channel_name">Channel name</label>
+      </p>
+
       <!-- LAYOUT -->
       <p>
         <label for="<?php echo esc_attr( $this->get_field_id( 'layout' ) ); ?>">
@@ -95,7 +105,7 @@
           id="<?php echo esc_attr( $this->get_field_id( 'layout' ) ); ?>" 
           name="<?php echo esc_attr( $this->get_field_name( 'layout' ) ); ?>">
           <option value="default" <?php echo ($layout == 'default') ? 'selected' : ''; ?>>
-            Default
+            Minimal
           </option>
           <option value="full" <?php echo ($layout == 'full') ? 'selected' : ''; ?>>
             Full
@@ -114,10 +124,10 @@
           id="<?php echo esc_attr( $this->get_field_id( 'count' ) ); ?>" 
           name="<?php echo esc_attr( $this->get_field_name( 'count' ) ); ?>">
           <option value="default" <?php echo ($count == 'default') ? 'selected' : ''; ?>>
-            Default
+            Show
           </option>
           <option value="hidden" <?php echo ($count == 'hidden') ? 'selected' : ''; ?>>
-            Hidden
+            Hide
           </option>
         </select>
       </p>
@@ -145,6 +155,8 @@
 
       $instance['count'] = ( ! empty( $new_instance['count'] ) ) ? strip_tags( $new_instance['count'] ) : '';
   
+      $instance['channel_url_type'] = ( ! empty( $new_instance['channel_url_type'] ) ) ? strip_tags( $new_instance['channel_url_type'] ) : '';
+
       return $instance;
     }
   
